@@ -1,13 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { Fragment, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useChat } from 'ai/react';
 
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: '/api/chat',
-  });
+  const { messages, input, handleInputChange, handleSubmit, setInput } =
+    useChat({
+      api: '/api/chat',
+    });
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [base64Images, setBase64Images] = useState<string[]>([]);
 
@@ -22,6 +23,7 @@ export default function Chat() {
       const newFiles = Array.from(e.target.files);
 
       const newURLs = newFiles.map((file) => URL.createObjectURL(file));
+
       setImageUrls((prevURLs) => [...prevURLs, ...newURLs]);
 
       const base64Promises = newFiles.map((file) => {
@@ -61,27 +63,28 @@ export default function Chat() {
   };
 
   const FilePreview = () =>
-    imageUrls.length > 0 ? (
+    imageUrls.length ? (
       <div className='flex space-x-2'>
         {imageUrls.map((imageUrl, index) => (
-          <Fragment key={index}>
-            <div className='mb-4'>
-              <Image
-                src={imageUrl}
-                alt='File preview'
-                width={50}
-                height={50}
-                className='rounded'
-              />
-              <button
-                type='button'
-                onClick={() => handleRemoveFile(index)}
-                className='text-xs'
-              >
-                Delete
-              </button>
-            </div>
-          </Fragment>
+          <div
+            className='mb-4 flex items-center justify-center flex-col'
+            key={index}
+          >
+            <Image
+              src={imageUrl}
+              alt='File preview'
+              width={50}
+              height={50}
+              className='rounded shadow-sm mb-1'
+            />
+            <button
+              type='button'
+              onClick={() => handleRemoveFile(index)}
+              className='text-xs font-semibold'
+            >
+              Drop
+            </button>
+          </div>
         ))}
       </div>
     ) : null;
@@ -97,8 +100,16 @@ export default function Chat() {
           ))
         : null}
 
-      <div className='fixed bottom-0 left-0 right-0 w-full z-20'>
-        <div className='mx-auto max-w-lg px-4 py-8'>
+      <div className='fixed bottom-0 left-0 right-0 w-full bg-gray-50 z-20'>
+        <div className='mx-auto max-w-lg px-4 py-4'>
+          {input.length < 1 && imageUrls.length > 0 && messages.length < 1 && (
+            <button
+              className='mb-1'
+              onClick={() => setInput('What are the macros on this meal?')}
+            >
+              What are the macros on this meal?
+            </button>
+          )}
           <div className='rounded border p-4'>
             <FilePreview />
             <form
@@ -122,14 +133,14 @@ export default function Chat() {
               <button
                 type='button'
                 onClick={handleFileButtonClick}
-                className='mr-2 p-2'
+                className='mr-2 p-2 border'
               >
-                📎
+                +
               </button>
               <input
                 className='w-full rounded border p-2'
                 value={input}
-                placeholder='What does the image show...'
+                placeholder='What are the macros on this meal?'
                 onChange={handleInputChange}
               />
             </form>
