@@ -5,10 +5,18 @@ import { useRef, useState } from 'react';
 import { useChat } from 'ai/react';
 
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit, setInput } =
-    useChat({
-      api: '/api/chat',
-    });
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    setInput,
+    stop,
+    reload,
+    isLoading,
+  } = useChat({
+    api: '/api/chat',
+  });
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [base64Images, setBase64Images] = useState<string[]>([]);
 
@@ -91,25 +99,51 @@ export default function Chat() {
 
   return (
     <div className='mx-auto flex w-full max-w-lg flex-col space-y-4 px-4 pb-60 pt-20'>
-      {messages.length > 0
-        ? messages.map((m) => (
-            <div key={m.id} className='whitespace-pre-wrap'>
-              {m.role === 'user' ? 'User: ' : 'AI: '}
-              {m.content}
-            </div>
-          ))
-        : null}
+      {messages.length > 0 ? (
+        messages.map((m) => (
+          <div key={m.id} className='whitespace-pre-wrap'>
+            {m.role === 'user' ? 'User: ' : 'AI: '}
+            {m.content}
+          </div>
+        ))
+      ) : (
+        <p className='text-center capitalize text-balance font-medium'>
+          Drop an image or ask any questions to discover cool things about your
+          meals.
+        </p>
+      )}
 
       <div className='fixed bottom-0 left-0 right-0 w-full bg-gray-50 z-20'>
         <div className='mx-auto max-w-lg px-4 py-4'>
-          {input.length < 1 && imageUrls.length > 0 && messages.length < 1 && (
-            <button
-              className='mb-1'
-              onClick={() => setInput('What are the macros on this meal?')}
-            >
-              What are the macros on this meal?
-            </button>
-          )}
+          <div className='mb-2 space-x-2 flex items-start justify-start'>
+            {input.length < 1 &&
+              imageUrls.length > 0 &&
+              messages.length < 1 && (
+                <button
+                  className='bg-yellow-200 capitalize px-2 py-1 font-medium text-xs rounded-sm'
+                  onClick={() => setInput('What are the macros on this meal?')}
+                >
+                  What are the macros on this meal?
+                </button>
+              )}
+            {isLoading && (
+              <button
+                className='bg-yellow-200 capitalize px-2 py-1 font-medium text-xs rounded-sm'
+                onClick={() => stop()}
+              >
+                Stop
+              </button>
+            )}
+            {messages.length > 0 &&
+              messages[messages.length - 1].role === 'assistant' && (
+                <button
+                  className='bg-yellow-200 capitalize px-2 py-1 font-medium text-xs rounded-sm'
+                  onClick={() => reload()}
+                >
+                  Reload
+                </button>
+              )}
+          </div>
           <div className='rounded border p-4'>
             <FilePreview />
             <form
@@ -133,7 +167,7 @@ export default function Chat() {
               <button
                 type='button'
                 onClick={handleFileButtonClick}
-                className='mr-2 p-2 border'
+                className='mr-2 p-1'
               >
                 +
               </button>
