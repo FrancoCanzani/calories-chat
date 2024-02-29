@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { useChat } from 'ai/react';
 
-export default function Chat() {
+export default function Page() {
   const {
     messages,
     input,
@@ -99,11 +99,20 @@ export default function Chat() {
 
   return (
     <div className='mx-auto flex w-full max-w-lg flex-col space-y-4 px-4 pb-60 pt-20'>
-      {messages.length > 0 ? (
+      {messages.length ? (
         messages.map((m) => (
-          <div key={m.id} className='whitespace-pre-wrap'>
-            {m.role === 'user' ? 'User: ' : 'AI: '}
-            {m.content}
+          <div key={m.id} className='whitespace-pre-wrap text-xs'>
+            {m.role === 'user' ? (
+              <div className='rounded-md rounded-bl-none bg-gray-100 px-2 py-1 w-fit'>
+                {'User: '}
+                {m.content}
+              </div>
+            ) : (
+              <div className='rounded-md rounded-bl-none bg-green-200 px-2 py-1 w-fit'>
+                {'Assistant: '}
+                {m.content}
+              </div>
+            )}
           </div>
         ))
       ) : (
@@ -134,15 +143,6 @@ export default function Chat() {
                 Stop
               </button>
             )}
-            {messages.length > 0 &&
-              messages[messages.length - 1].role === 'assistant' && (
-                <button
-                  className='bg-yellow-200 capitalize px-2 py-1 font-medium text-xs rounded-sm'
-                  onClick={() => reload()}
-                >
-                  Reload
-                </button>
-              )}
           </div>
           <div className='rounded border p-4'>
             <FilePreview />
@@ -167,7 +167,7 @@ export default function Chat() {
               <button
                 type='button'
                 onClick={handleFileButtonClick}
-                className='mr-2 p-1'
+                className='mr-2 p-1 hover:bg-gray-100 rounded-sm'
               >
                 +
               </button>
