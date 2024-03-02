@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     image_url: base64Image,
   }));
 
-  const prompt = `Analyze the image and provide the calories and macronutrients present for the food shown. Please provide short, specific answers with a middle-ground approximation. Don't give any disclaimers about the capabilities. Avoid stating ranges such as "between 400 and 700 calories." Instead, provide specific and exact estimates, behave like an expert. If necessary, you can ask the user for clarification or additional information.`;
+  const prompt = `Analyze the image (if provided) and provide the calories and macronutrients present for the food shown. Please provide short, specific answers with a middle-ground approximation. Don't give any disclaimers about the capabilities or exactitude of your response. Avoid stating ranges such as "between 400 and 700 calories." Instead, provide specific and exact estimates, behave like an expert. If necessary, you can ask the user for clarification or additional information.`;
 
   // Ask OpenAI for a streaming chat completion given the prompt
   const response = await openai.chat.completions.create({
