@@ -11,8 +11,11 @@ import {
 import { ChatRequestOptions } from 'ai';
 import Image from 'next/image';
 import { Button } from './ui/button';
+import ChatToolbar from './chat-toolbar';
+import { Message } from 'ai/react';
 
 interface PromptProps {
+  messages: Message[];
   input: string;
   setInput: Dispatch<SetStateAction<string>>;
   handleSubmit: (
@@ -25,6 +28,10 @@ interface PromptProps {
   isLoading: boolean;
   imageUrls: string[];
   setImageUrls: Dispatch<SetStateAction<string[]>>;
+  stop: () => void;
+  reload: (
+    chatRequestOptions?: ChatRequestOptions | undefined
+  ) => Promise<string | null | undefined>;
 }
 
 export default function PromptForm({
@@ -35,6 +42,9 @@ export default function PromptForm({
   handleInputChange,
   imageUrls,
   setImageUrls,
+  stop,
+  reload,
+  messages,
 }: PromptProps) {
   const [base64Images, setBase64Images] = useState<string[]>([]);
 
@@ -118,8 +128,14 @@ export default function PromptForm({
   return (
     <div className='fixed z-50 inset-x-0 bottom-0 w-full bg-white animate-in duration-300 ease-in-out'>
       <div className='mx-auto sm:max-w-3xl sm:px-4'>
+        <ChatToolbar
+          stop={stop}
+          reload={reload}
+          messages={messages}
+          isLoading={isLoading}
+        />
         <div className='flex items-center justify-center'>
-          <div className='px-4 py-2 sm:w-[90%] w-full space-y-1 border-t shadow-lg bg-background rounded-t-md border md:py-3'>
+          <div className='px-4 py-2 sm:w-[90%] w-full space-y-1 border-t shadow-lg rounded-t-md border md:py-3'>
             <FilePreview />
             <form
               onSubmit={(e) => {

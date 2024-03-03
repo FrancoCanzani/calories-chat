@@ -31,6 +31,9 @@ export default function Page() {
         isLoading={isLoading}
         imageUrls={imageUrls}
         setImageUrls={setImageUrls}
+        stop={stop}
+        reload={reload}
+        messages={messages}
       />
     </>
   );

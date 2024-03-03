@@ -1,7 +1,6 @@
 import OpenAI from 'openai';
 import { OpenAIStream, StreamingTextResponse } from 'ai';
 
-// Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -16,14 +15,17 @@ export async function POST(req: Request) {
   const initialMessages = messages.slice(0, -1);
   const currentMessage = messages[messages.length - 1];
 
-  const base64Images: string[] = JSON.parse(data.base64Images);
+  let base64Images: string[] = [];
+  if (data && data.base64Images) {
+    base64Images = JSON.parse(data.base64Images);
+  }
 
   const images = base64Images.map((base64Image) => ({
     type: 'image_url',
     image_url: base64Image,
   }));
 
-  const prompt = `Analyze the image (if provided) and provide the calories and macronutrients present for the food shown. Please provide short, specific answers with a middle-ground approximation. Don't give any disclaimers about the capabilities or exactitude of your response. Avoid stating ranges such as "between 400 and 700 calories." Instead, provide specific and exact estimates, behave like an expert. If necessary, you can ask the user for clarification or additional information.`;
+  const prompt = `You are a health and nutrition expert. Provide short, specific answers about the user questions or images. Don't give any disclaimers about the capabilities or exactitude of your response. Avoid stating ranges such as "between 400 and 700 calories." Instead, provide specific and exact numbers, ideally displayed in lists. If necessary, you can ask the user for clarification or additional information.`;
 
   // Ask OpenAI for a streaming chat completion given the prompt
   const response = await openai.chat.completions.create({
