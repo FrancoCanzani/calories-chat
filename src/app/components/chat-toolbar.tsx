@@ -15,7 +15,7 @@ export default function ChatToolbar({
   ) => Promise<string | null | undefined>;
 }) {
   return (
-    <div className='px-9 py-1 flex items-center justify-start space-x-2'>
+    <div className='sm:px-10 px-1 py-1 flex items-center justify-start space-x-2'>
       {isLoading && (
         <Button
           variant={'outline'}

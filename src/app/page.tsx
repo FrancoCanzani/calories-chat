@@ -22,7 +22,7 @@ export default function Page() {
 
   return (
     <>
-      <ChatList messages={messages} imageUrls={imageUrls} />
+      <ChatList messages={messages} imageUrls={imageUrls} setInput={setInput} />
       <PromptForm
         setInput={setInput}
         handleInputChange={handleInputChange}

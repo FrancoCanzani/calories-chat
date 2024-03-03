@@ -127,7 +127,7 @@ export default function PromptForm({
 
   return (
     <div className='fixed z-50 inset-x-0 bottom-0 w-full bg-white animate-in duration-300 ease-in-out'>
-      <div className='mx-auto sm:max-w-3xl sm:px-4'>
+      <div className='mx-auto sm:max-w-3xl sm:px-4 backdrop-blur-sm'>
         <ChatToolbar
           stop={stop}
           reload={reload}
@@ -166,7 +166,7 @@ export default function PromptForm({
                 <input
                   className='sm:min-h-[60px] w-full bg-transparent px-4 py-[1.3rem] focus-within:outline-none sm:text-sm'
                   value={input}
-                  placeholder='What are the macros on this meal?'
+                  placeholder="What's the nutritional content of a chicken breast?"
                   autoFocus
                   onChange={handleInputChange}
                 />
