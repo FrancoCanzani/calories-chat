@@ -14,12 +14,12 @@ export default function PromptSuggestions({
   ];
 
   return (
-    <div className='gap-2 p-2 sm:p-0 grid text-xs sm:text-sm'>
+    <div className='gap-2.5 p-2 sm:p-0 grid text-xs sm:text-sm'>
       {promptSuggestions.map((sug) => (
         <button
           onClick={() => setInput(sug)}
           key={sug}
-          className='bg-white text-start rounded-md px-3 py-2 hover:bg-gray-50 text-gray-600 border shadow-sm'
+          className='bg-white text-start rounded-md px-3 py-2 hover:bg-gray-50 text-gray-600 border shadow-sm transition-shadow hover:shadow-lg'
         >
           {sug}
         </button>
