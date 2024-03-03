@@ -14,7 +14,12 @@ export default function ChatList({
   setInput: Dispatch<SetStateAction<string>>;
 }) {
   return (
-    <div className={cn('pb-36 pt-4 md:pt-10', imageUrls.length && 'pb-52')}>
+    <div
+      className={cn(
+        'pb-36 pt-4 px-3 sm:px-0 md:pt-10',
+        imageUrls.length && 'pb-52'
+      )}
+    >
       {messages.length ? (
         <>
           <div className='relative mx-auto max-w-2xl space-y-3'>
