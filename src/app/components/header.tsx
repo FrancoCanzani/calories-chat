@@ -2,14 +2,9 @@
 
 import * as React from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
-import { redirect } from 'next/navigation';
 
 export function Header() {
   const { data: session, update } = useSession();
-
-  if (session) {
-    console.log(session.user?.id);
-  }
 
   return (
     <header className='sticky top-0 z-50 flex items-center justify-between w-full h-12 px-4 border-b shrink-0 backdrop-blur-xl'>
@@ -18,11 +13,27 @@ export function Header() {
         <div className='font-medium text-sm'>
           {session ? (
             <>
-              <button onClick={() => signOut()}>Sign out</button>
+              <button
+                onClick={() =>
+                  signOut({
+                    callbackUrl: 'http://localhost:3000',
+                  })
+                }
+              >
+                Sign out
+              </button>
             </>
           ) : (
             <>
-              <button onClick={() => signIn()}>Sign in</button>
+              <button
+                onClick={() =>
+                  signIn('github', {
+                    callbackUrl: 'http://localhost:3000/chat',
+                  })
+                }
+              >
+                Sign in
+              </button>
             </>
           )}
         </div>
