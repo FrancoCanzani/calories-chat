@@ -16,7 +16,7 @@ export function Header() {
               <button
                 onClick={() =>
                   signOut({
-                    callbackUrl: `${process.env.NEXT_PUBLIC_DEPLOYMENT_URL}`,
+                    callbackUrl: `https://calories-chat.vercel.app/`,
                   })
                 }
               >
@@ -28,7 +28,7 @@ export function Header() {
               <button
                 onClick={() =>
                   signIn('github', {
-                    callbackUrl: `${process.env.NEXT_PUBLIC_DEPLOYMENT_URL}chat`,
+                    callbackUrl: `https://calories-chat.vercel.app/chat`,
                   })
                 }
               >
