@@ -15,6 +15,7 @@ export default function Page() {
     stop,
     reload,
     isLoading,
+    append,
   } = useChat({
     api: '/api/chat',
   });
@@ -34,6 +35,7 @@ export default function Page() {
         stop={stop}
         reload={reload}
         messages={messages}
+        append={append}
       />
     </>
   );

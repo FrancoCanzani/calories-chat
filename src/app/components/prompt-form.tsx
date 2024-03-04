@@ -8,7 +8,7 @@ import {
   useState,
   useRef,
 } from 'react';
-import { ChatRequestOptions } from 'ai';
+import { ChatRequestOptions, CreateMessage } from 'ai';
 import Image from 'next/image';
 import { Button } from './ui/button';
 import ChatToolbar from './chat-toolbar';
@@ -32,6 +32,10 @@ interface PromptProps {
   reload: (
     chatRequestOptions?: ChatRequestOptions | undefined
   ) => Promise<string | null | undefined>;
+  append: (
+    message: Message | CreateMessage,
+    chatRequestOptions?: ChatRequestOptions | undefined
+  ) => Promise<string | null | undefined>;
 }
 
 export default function PromptForm({
@@ -45,6 +49,7 @@ export default function PromptForm({
   stop,
   reload,
   messages,
+  append,
 }: PromptProps) {
   const [base64Images, setBase64Images] = useState<string[]>([]);
 
@@ -61,6 +66,15 @@ export default function PromptForm({
       const newURLs = newFiles.map((file) => URL.createObjectURL(file));
 
       setImageUrls((prevURLs) => [...prevURLs, ...newURLs]);
+
+      // const newMessage: Message = {
+      //   content: 'Here is the image I uploaded: ' + imageUrls[0],
+      //   role: 'user',
+      // };
+
+      // append(newMessage);
+      console.log(imageUrls);
+      // console.log(newMessage);
 
       const base64Promises = newFiles.map((file) => {
         return new Promise<string>((resolve, reject) => {
