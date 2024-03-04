@@ -16,7 +16,7 @@ export function Header() {
               <button
                 onClick={() =>
                   signOut({
-                    callbackUrl: 'http://localhost:3000',
+                    callbackUrl: `${process.env.DEPLOYMENT_URL}`,
                   })
                 }
               >
@@ -28,7 +28,7 @@ export function Header() {
               <button
                 onClick={() =>
                   signIn('github', {
-                    callbackUrl: 'http://localhost:3000/chat',
+                    callbackUrl: `${process.env.DEPLOYMENT_URL}chat`,
                   })
                 }
               >
