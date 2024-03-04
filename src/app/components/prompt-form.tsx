@@ -67,15 +67,6 @@ export default function PromptForm({
 
       setImageUrls((prevURLs) => [...prevURLs, ...newURLs]);
 
-      // const newMessage: Message = {
-      //   content: 'Here is the image I uploaded: ' + imageUrls[0],
-      //   role: 'user',
-      // };
-
-      // append(newMessage);
-      console.log(imageUrls);
-      // console.log(newMessage);
-
       const base64Promises = newFiles.map((file) => {
         return new Promise<string>((resolve, reject) => {
           const reader = new FileReader();
