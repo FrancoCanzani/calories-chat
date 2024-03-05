@@ -2,20 +2,15 @@ import { useState, useEffect } from 'react';
 
 interface Props {
   typingSpeed?: number;
+  words: string | string[];
 }
 
-export default function UseTypewriteEffect({ typingSpeed = 70 }: Props = {}) {
+export default function UseTypewriteEffect({ typingSpeed = 70, words }: Props) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentDisplay, setCurrentDisplay] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const words = [
-      'Suggest healthy meal options',
-      'Recommend workout routines',
-      'Offer advice on improving sleep time',
-    ];
-
     let timeout: NodeJS.Timeout;
     const type = () => {
       const currentWord = words[currentWordIndex];
@@ -48,7 +43,7 @@ export default function UseTypewriteEffect({ typingSpeed = 70 }: Props = {}) {
     timeout = setTimeout(type, typingSpeed);
 
     return () => clearTimeout(timeout);
-  }, [currentWordIndex, currentDisplay, isDeleting, typingSpeed]);
+  }, [currentWordIndex, currentDisplay, isDeleting, typingSpeed, words]);
 
   return { currentDisplay };
 }
