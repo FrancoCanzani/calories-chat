@@ -3,7 +3,8 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Header } from './components/header';
 import { getServerSession } from 'next-auth';
-import SessionProvider from '../app/components/sessionProvider';
+import ClientProvider from './components/client-provider';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -20,12 +21,12 @@ export default async function RootLayout({
 
   return (
     <html lang='en'>
-      <SessionProvider session={session}>
-        <body className={`flex flex-col inter ${inter.className}`}>
+      <body className={`flex flex-col inter ${inter.className}`}>
+        <ClientProvider session={session}>
           <Header />
           <main className='flex flex-col flex-1'>{children}</main>
-        </body>
-      </SessionProvider>
+        </ClientProvider>
+      </body>
     </html>
   );
 }

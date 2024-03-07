@@ -25,8 +25,7 @@ export async function POST(req: Request) {
     image_url: base64Image,
   }));
 
-  const prompt =
-    "You're a health and nutrition expert. Share concise answers to user inquiries or images in less than 2 tweets size or 600 characters. Summarize your responses effectively. Avoid disclaimers on response accuracy. Provide precise numbers, not ranges like '400-700 calories'. Lists are preferred. Feel free to request clarification or more details if needed.";
+  const prompt = process.env.PROMPT;
 
   // Ask OpenAI for a streaming chat completion given the prompt
   const response = await openai.chat.completions.create({

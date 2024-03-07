@@ -153,7 +153,7 @@ export default function PromptForm({
               }}
               className='flex items-center justify-center'
             >
-              <div className='relative flex items-center justify-start w-full px-2 sm:px-4 overflow-hidden max-h-60 grow bg-background rounded-md sm:border'>
+              <div className='relative flex items-center justify-start w-full px-2 sm:px-4 overflow-hidden max-h-60 grow bg-white rounded-md sm:border'>
                 <input
                   type='file'
                   ref={fileInputRef}
@@ -164,7 +164,7 @@ export default function PromptForm({
                 <button
                   type='button'
                   onClick={handleFileButtonClick}
-                  className='inline-flex items-center justify-center text-sm font-medium shadow ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input hover:bg-accent hover:text-accent-foreground h-8 w-8 rounded-md bg-background p-0'
+                  className='inline-flex items-center justify-center text-sm font-medium shadow ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input hover:bg-accent hover:text-accent-foreground h-8 w-8 rounded-md bg-white p-0'
                 >
                   +
                 </button>
@@ -179,7 +179,7 @@ export default function PromptForm({
                   type='submit'
                   size='icon'
                   disabled={isLoading || input === ''}
-                  className='inline-flex items-center justify-center text-sm font-medium shadow ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input hover:bg-accent hover:text-accent-foreground h-8 w-8 rounded-md bg-background p-0'
+                  className='inline-flex items-center justify-center text-sm font-medium shadow ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input hover:bg-accent hover:text-accent-foreground h-8 w-8 rounded-md bg-white p-0'
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'

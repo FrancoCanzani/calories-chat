@@ -29,16 +29,13 @@ export default function ChatList({
                 className='whitespace-pre-wrap text-xs md:text-[0.85rem]'
               >
                 {m.role === 'user' ? (
-                  <div className='flex justify-end'>
-                    <div className='rounded-md rounded-tr-none bg-gray-100 shadow px-2 py-2 w-fit'>
-                      {m.content}
-                    </div>
+                  <div className='flex justify-start relative'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       width='1.3em'
                       height='1.3em'
                       viewBox='0 0 24 24'
-                      className='ml-1'
+                      className='mr-1'
                     >
                       <circle cx='12' cy='6' r='4' fill='currentColor' />
                       <ellipse
@@ -49,22 +46,29 @@ export default function ChatList({
                         ry='4'
                       />
                     </svg>
+                    <div className='rounded-md rounded-tl-none bg-gray-100 shadow px-2 py-2 w-full'>
+                      {m.content}
+                    </div>
                   </div>
                 ) : (
-                  <div className='flex justify-start'>
+                  <div className='flex justify-start relative'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       width='1.3em'
                       height='1.3em'
-                      viewBox='0 0 24 24'
+                      viewBox='0 0 32 32'
                       className='mr-1'
                     >
                       <path
                         fill='currentColor'
-                        d='M12.5 1.5c-1.77 0-3.33 1.17-3.83 2.87C8.14 4.13 7.58 4 7 4a4 4 0 0 0-4 4a4.01 4.01 0 0 0 3 3.87V19h13v-7.13c1.76-.46 3-2.05 3-3.87a4 4 0 0 0-4-4c-.58 0-1.14.13-1.67.37c-.5-1.7-2.06-2.87-3.83-2.87m-.5 9h1v7h-1zm-3 2h1v5H9zm6 0h1v5h-1zM6 20v1a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-1z'
+                        d='m15 19l-1.414 1.414L17.172 24H4V11H2v13a2 2 0 0 0 2 2h13.172l-3.586 3.586L15 31l6-6zm9-1v-2h2V4h-2V2h6v2h-2v12h2v2z'
+                      />
+                      <path
+                        fill='currentColor'
+                        d='M21 18h2L17.5 2l-3 .009L9 18h2l1.333-4h7.334zm-8-6l3-9l3 9z'
                       />
                     </svg>
-                    <div className='rounded-md rounded-tl-none bg-green-200 shadow shadow-green-300 px-2 py-2 w-fit'>
+                    <div className='rounded-md rounded-tl-none bg-green-200 shadow shadow-green-300 px-2 py-2 w-full'>
                       {m.content}
                     </div>
                   </div>
